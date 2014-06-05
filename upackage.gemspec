@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Upackage::VERSION
   spec.authors       = ["Ivan Kasatenko"]
   spec.email         = ["sky.31338@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Debian packaging for Ruby and Ruby on Rails applications}
   spec.homepage      = ""
   spec.license       = "MIT"
 
