@@ -10,7 +10,7 @@ module Upackage
 
     def create
       system.perform('mkdir -p debian/')
-      system.perform("cp -fR #{templates_path}/* debian/*")
+      system.perform("cp -fr #{templates_path}/* debian/")
       system.perform('dpkg-buildpackage -us -us -b')
     end
 
