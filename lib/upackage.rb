@@ -11,11 +11,17 @@ module Upackage
     def create
       system.perform('git clone git@red:sample-project.git')
       system.perform('mkdir -p debian/')
-      system.perform('cp -fR templates/* debian/*')
+      system.perform("cp -fR #{templates_path}/* debian/*")
       system.perform('dpkg-buildpackage -us -us -b')
     end
 
     attr_reader :system
+
+    private
+
+    def templates_path
+      File.expand_path('../../templates', __FILE__)
+    end
   end
 
   class SystemGateway
