@@ -10,6 +10,8 @@ module Upackage
 
     def create
       system.perform('git clone git@red:sample-project.git')
+      system.perform('mkdir -p debian/')
+      system.perform('cp -fR templates/* debian/*')
       system.perform('dpkg-buildpackage -us -us -b')
     end
 
