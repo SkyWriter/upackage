@@ -4,19 +4,17 @@ require "singleton"
 module Upackage
 
   class Creator
-    def initialize(system, repository)
+    def initialize(system)
       @system = system
-      @repository = repository
     end
 
     def create
-      system.perform("git clone #{repository}")
       system.perform('mkdir -p debian/')
       system.perform("cp -fR #{templates_path}/* debian/*")
       system.perform('dpkg-buildpackage -us -us -b')
     end
 
-    attr_reader :system, :repository
+    attr_reader :system
 
     private
 
