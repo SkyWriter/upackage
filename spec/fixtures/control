@@ -1,0 +1,13 @@
+Source: sample-project
+Section: misc
+Priority: optional
+Maintainer: Konstantin <lazychyvak@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.4
+
+Package: sample-project
+Homepage: http://uniq.systems/
+Version: 1.0.0
+Architecture: amd64
+Depends: ruby1.9.3, memcached
+Description: Sample project application, designed by UNIQsystems.
