@@ -1,3 +1,15 @@
+class StubFSGateway
+  attr_reader :files
+
+  def initialize
+    @files = { }
+  end
+
+  def put_file(file, contents)
+    @files[file] = contents
+  end
+end
+
 describe Upackage do
 
   it "should build package" do
@@ -8,13 +20,15 @@ describe Upackage do
       expect(SystemGateway.instance).to receive(:perform).with(command)
     end
 
+    stub_fs_gateway = StubFSGateway.new
+    creator = Creator.new(SystemGateway.instance, stub_fs_gateway)
+    creator.create
+
     %w(changelog compat control dirs docs files postinst postrm prerm rules).each do |filename|
-      contents = IO.read(File.expand_path("../../fixtures/#{filename}", __FILE__))
-      expect(FSGateway.instance).to receive(:put_file).with(filename, contents)
+      needed_content = IO.read(File.expand_path("../../fixtures/#{filename}", __FILE__))
+      expect(stub_fs_gateway.files["debian/#{filename}"]).to eq needed_content
     end
 
-    creator = Creator.new(SystemGateway.instance, FSGateway.instance)
-    creator.create
   end
 
 end

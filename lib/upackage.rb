@@ -11,19 +11,22 @@ module Upackage
 
     def create
       system.perform('mkdir -p debian/')
+      fill_templates
       system.perform('dpkg-buildpackage -us -us -b')
     end
 
-    attr_reader :system
+    attr_reader :system, :fs
 
     private
 
     def fill_templates
-      %w(changelog compat control dirs docs files install postinst postrm prerm rules)
+      %w(changelog compat control dirs docs files install postinst postrm prerm rules).each do |filename|
+        fs.put_file("debian/#{filename}", ERB.new(IO.read(template_path(filename))).result(binding))
+      end
     end
 
-    def templates_path
-      File.expand_path('../../templates', __FILE__)
+    def template_path(filename)
+      File.expand_path("../../templates/#{filename}.erb", __FILE__)
     end
   end
 
