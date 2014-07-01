@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'upackage'
+
+creator = Upackage::Creator.new(Upackage::SystemGateway.instance)
+creator.create
